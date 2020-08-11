@@ -27,7 +27,7 @@ test {
 release {
 //	pushReleaseVersionBranch = 'release'
 	git {
-		requireBranch = 'release|master'
+		requireBranch = '/release|master/'
 	}
 }
 
