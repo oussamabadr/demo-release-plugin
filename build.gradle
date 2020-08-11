@@ -80,10 +80,13 @@ release {
 //gradle.addListener(new BA())
 
 task mergeMaster {
-	ererrerre
-	doLast {
-		println "Yessssssssssssssssssss"
+		def stdout = new ByteArrayOutputStream()
+	exec {
+		commandLine 'git', 'log','--date=local','--name-status','--after="2018.07.19"'
+
+		standardOutput = stdout
 	}
+	print stdout.toString().trim()
 }
 
 mergeMaster.dependsOn release
