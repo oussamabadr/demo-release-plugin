@@ -34,6 +34,7 @@ afterReleaseBuild {
 		exec {
 			workingDir '.'
 			commandLine 'git', 'merge', 'master'
+			commandLine 'git', 'push', 'origin', 'master'
 		}
 
 	}
