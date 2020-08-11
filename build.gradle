@@ -4,6 +4,7 @@ plugins {
 	id 'org.springframework.boot' version '2.3.2.RELEASE'
 	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
 	id 'net.researchgate.release' version '2.8.1'
+	id 'com.dorongold.task-tree' version '1.5'
 	id 'java'
 }
 
@@ -29,42 +30,88 @@ release {
 	git {
 		requireBranch = ''
 	}
+
 }
 
 
 
-task mergeReleaseToMaster() {
-	description "Merge [release] branch to [master]"
-	exec {
-		workingDir '.'
-		commandLine 'echo', 'Merge to master...'
-		commandLine  'sh', '-c', 'git checkout master'
-		commandLine  'sh', '-c', 'git merge release'
-		commandLine  'sh', '-c', 'git push origin master'
-		commandLine 'echo', 'Merge to master...OK'
-	}
-}
 
-mergeReleaseToMaster.dependsOn release
 
-def getGitCommand = { ->
-	def stdout = new ByteArrayOutputStream()
-	exec {
-		commandLine 'git', 'log','--date=local','--name-status','--after="2018.07.19"'
-		standardOutput = stdout
-	}
-	return stdout.toString().trim()
-}
-
-task prinGitLog{
-	def stdout = new ByteArrayOutputStream()
-	exec {
+//task mergeReleaseToMaster() {
+//	description "Merge [release] branch to [master]"
+//	exec {
+//		workingDir '.'
+//		commandLine 'echo', 'Merge to master...'
+//		commandLine  'sh', '-c', 'git checkout master'
+//		commandLine  'sh', '-c', 'git merge release'
+//		commandLine  'sh', '-c', 'git push origin master'
+//		commandLine 'echo', 'Merge to master...OK'
+//	}
+//}
+//
+//mergeReleaseToMaster.dependsOn release
+//
+//def getGitCommand = { ->
+//	def stdout = new ByteArrayOutputStream()
+//	exec {
 //		commandLine 'git', 'log','--date=local','--name-status','--after="2018.07.19"'
+//		standardOutput = stdout
+//	}
+//	return stdout.toString().trim()
+//}
+//
+//task prinGitLog{
+//	def stdout = new ByteArrayOutputStream()
+//	exec {
+////		commandLine 'git', 'log','--date=local','--name-status','--after="2018.07.19"'
+//		commandLine "git", "checkout", "master"
+////		commandLine "git", "merge", "release"
+//		standardOutput = stdout
+//	}
+//	print stdout.toString().trim()
+//}
+
+//class BA extends BuildAdapter {
+//	void buildFinished(BuildResult result) {
+//		println "finished ==> " + result
+//	}
+//}
+//
+//gradle.addListener(new BA())
+
+//task mergeMaster {
+//		def stdout = new ByteArrayOutputStream()
+//	exec {
+//		commandLine 'git', 'log','--date=local','--name-status','--after="2018.07.19"'
+//
+//		standardOutput = stdout
+//	}
+//	println 'heyyyyyyyyyyyyyyyyy'
+//	println stdout.toString().trim()
+//}
+
+task mergeMaster {
+
+	def stdout = new ByteArrayOutputStream()
+	exec {
 		commandLine "git", "checkout", "master"
 		commandLine "git", "merge", "release"
 		standardOutput = stdout
 	}
-	print stdout.toString().trim()
+//	println 'heyyyyyyyyyyyyyyyyy'
+	println stdout.toString().trim()
+
+//	doLast {
+//		def stdout = new ByteArrayOutputStream()
+//		exec {
+//			commandLine 'git', 'log','--date=local','--name-status','--after="2018.07.19"'
+//			standardOutput = stdout
+//		}
+//		println 'heyyyyyyyyyyyyyyyyy'
+//		println stdout.toString().trim()
+//	}
 }
+
+//mergeMaster.dependsOn commitNewVersion
 
 
