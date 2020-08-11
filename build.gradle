@@ -29,4 +29,14 @@ release {
 	}
 }
 
-commandLine 'git', 'branch', '-a'
+afterReleaseBuild {
+	doLast {
+		exec {
+			workingDir '.'
+			commandLine 'git', 'branch', '-a'
+		}
+
+	}
+}
+
+
