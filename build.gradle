@@ -23,7 +23,7 @@ test {
 }
 
 release {
-	pushReleaseVersionBranch = 'release'
+//	pushReleaseVersionBranch = 'release'
 	git {
 		requireBranch = ''
 	}
@@ -33,7 +33,7 @@ afterReleaseBuild {
 	doLast {
 		exec {
 			workingDir '.'
-			commandLine 'git', 'branch', '-a'
+			commandLine 'git', 'merge', 'master'
 		}
 
 	}
