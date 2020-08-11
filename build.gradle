@@ -33,38 +33,38 @@ release {
 
 
 
-task mergeReleaseToMaster() {
-	description "Merge [release] branch to [master]"
-	exec {
-		workingDir '.'
-		commandLine 'echo', 'Merge to master...'
-		commandLine  'sh', '-c', 'git checkout master'
-		commandLine  'sh', '-c', 'git merge release'
-		commandLine  'sh', '-c', 'git push origin master'
-		commandLine 'echo', 'Merge to master...OK'
-	}
-}
-
-mergeReleaseToMaster.dependsOn release
-
-def getGitCommand = { ->
-	def stdout = new ByteArrayOutputStream()
-	exec {
-		commandLine 'git', 'log','--date=local','--name-status','--after="2018.07.19"'
-		standardOutput = stdout
-	}
-	return stdout.toString().trim()
-}
-
-task prinGitLog{
-	def stdout = new ByteArrayOutputStream()
-	exec {
+//task mergeReleaseToMaster() {
+//	description "Merge [release] branch to [master]"
+//	exec {
+//		workingDir '.'
+//		commandLine 'echo', 'Merge to master...'
+//		commandLine  'sh', '-c', 'git checkout master'
+//		commandLine  'sh', '-c', 'git merge release'
+//		commandLine  'sh', '-c', 'git push origin master'
+//		commandLine 'echo', 'Merge to master...OK'
+//	}
+//}
+//
+//mergeReleaseToMaster.dependsOn release
+//
+//def getGitCommand = { ->
+//	def stdout = new ByteArrayOutputStream()
+//	exec {
 //		commandLine 'git', 'log','--date=local','--name-status','--after="2018.07.19"'
-		commandLine "git", "checkout", "master"
-//		commandLine "git", "merge", "release"
-		standardOutput = stdout
-	}
-	print stdout.toString().trim()
-}
+//		standardOutput = stdout
+//	}
+//	return stdout.toString().trim()
+//}
+//
+//task prinGitLog{
+//	def stdout = new ByteArrayOutputStream()
+//	exec {
+////		commandLine 'git', 'log','--date=local','--name-status','--after="2018.07.19"'
+//		commandLine "git", "checkout", "master"
+////		commandLine "git", "merge", "release"
+//		standardOutput = stdout
+//	}
+//	print stdout.toString().trim()
+//}
 
 
