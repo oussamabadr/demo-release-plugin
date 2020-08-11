@@ -33,11 +33,11 @@ afterReleaseBuild {
 	doLast {
 		exec {
 			workingDir '.'
-			commandLine 'echo', 'Merge with master...'
-			commandLine  'sh', '-c', 'git checkout master'
+			commandLine 'echo', 'Merge to master...'
+			commandLine  'sh', '-c', 'git chfffeckout master'
 			commandLine  'sh', '-c', 'git merge release'
 			commandLine  'sh', '-c', 'git push origin master'
-			commandLine 'echo', 'Merge with master...OK'
+			commandLine 'echo', 'Merge to master...OK'
 		}
 
 	}
