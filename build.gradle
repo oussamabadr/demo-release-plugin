@@ -34,7 +34,7 @@ afterReleaseBuild {
 		exec {
 			workingDir '.'
 			commandLine 'echo', 'Merge with master...'
-			commandLine  'sh', '-c', 'git merge master & git push origin master'
+			commandLine  'sh', '-c', 'git merge master'
 			commandLine 'echo', 'Merge with master...OK'
 		}
 
