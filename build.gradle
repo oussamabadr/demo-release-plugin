@@ -30,10 +30,10 @@ release {
 	git {
 		requireBranch = ''
 	}
-	doLast {
-		println "Hetyyyyyyyyyyyyyy"
-	}
+
 }
+
+
 
 
 
@@ -80,8 +80,11 @@ release {
 //gradle.addListener(new BA())
 
 task mergeMaster {
-	dependsOn commitNewVersion
 	doLast {
 		println "Yessssssssssssssssssss"
 	}
 }
+
+mergeMaster.dependsOn release
+
+
