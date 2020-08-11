@@ -8,7 +8,7 @@ class DemoReleasePluginApplicationTests {
 
 	@Test
 	void contextLoads() {
-		System.out.println("Hey this a test!!!");
+		System.out.println("Hey this a test but a fix as well!!!");
 	}
 
 }
