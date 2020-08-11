@@ -80,6 +80,7 @@ release {
 //gradle.addListener(new BA())
 
 task mergeMaster {
+	ererrerre
 	doLast {
 		println "Yessssssssssssssssssss"
 	}
