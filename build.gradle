@@ -90,7 +90,8 @@ release {
 //	println stdout.toString().trim()
 //}
 
-task commitNewVersion {
+task mergeMaster {
+	dependsOn commitNewVersion
 	doLast {
 		def stdout = new ByteArrayOutputStream()
 		exec {
