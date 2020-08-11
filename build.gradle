@@ -66,7 +66,7 @@ task prinGitLog{
 	exec {
 //		commandLine 'git', 'log','--date=local','--name-status','--after="2018.07.19"'
 		commandLine "git", "checkout", "master"
-		commandLine "git", "merge", "release"
+//		commandLine "git", "merge", "release"
 		standardOutput = stdout
 	}
 	print stdout.toString().trim()
