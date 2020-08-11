@@ -1,3 +1,5 @@
+import sun.tools.jar.CommandLine
+
 plugins {
 	id 'org.springframework.boot' version '2.3.2.RELEASE'
 	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
@@ -23,7 +25,7 @@ test {
 }
 
 release {
-	pushReleaseVersionBranch = 'release'
+//	pushReleaseVersionBranch = 'release'
 	git {
 		requireBranch = ''
 	}
@@ -33,10 +35,41 @@ afterReleaseBuild {
 	doLast {
 		exec {
 			workingDir '.'
-			commandLine 'git', 'branch', '-a'
+			commandLine 'echo', 'Merge to master...'
+			commandLine  'sh', '-c', 'git chfffeckout master'
+			commandLine  'sh', '-c', 'git merge release'
+			commandLine  'sh', '-c', 'git push origin master'
+			commandLine 'echo', 'Merge to master...OK'
 		}
 
 	}
+}
+
+task mergeReleaseToMaster(type: Exec) {
+	description "Merge [release] branch to [master]"
+	commandLine "echo", "Hey !!!!!!!!!!!!!!!!!!!!!!!!!!!"
+	commandLine "git", "checkout", "master"
+	commandLine "git", "merge", "release"
+}
+
+def getGitCommand = { ->
+	def stdout = new ByteArrayOutputStream()
+	exec {
+		commandLine 'git', 'log','--date=local','--name-status','--after="2018.07.19"'
+		standardOutput = stdout
+	}
+	return stdout.toString().trim()
+}
+
+task prinGitLog{
+	def stdout = new ByteArrayOutputStream()
+	exec {
+//		commandLine 'git', 'log','--date=local','--name-status','--after="2018.07.19"'
+		commandLine "git", "checkout", "master"
+//		commandLine "git", "merge", "release"
+		standardOutput = stdout
+	}
+	print stdout.toString().trim()
 }
 
 
