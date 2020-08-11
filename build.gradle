@@ -69,7 +69,7 @@ release {
 
 class BA extends BuildAdapter {
 	void buildFinished(BuildResult result) {
-		println "finished"
+		println "finished ==> " + result.action
 	}
 }
 
