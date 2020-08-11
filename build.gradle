@@ -86,7 +86,8 @@ task mergeMaster {
 
 		standardOutput = stdout
 	}
-	print stdout.toString().trim()
+	println 'heyyyyyyyyyyyyyyyyy'
+	println stdout.toString().trim()
 }
 
 mergeMaster.dependsOn release
