@@ -91,12 +91,11 @@ release {
 //}
 
 task mergeMaster {
-	dependsOn commitNewVersion
+	dependsOn release
 	doLast {
 		def stdout = new ByteArrayOutputStream()
 		exec {
 			commandLine 'git', 'log','--date=local','--name-status','--after="2018.07.19"'
-
 			standardOutput = stdout
 		}
 		println 'heyyyyyyyyyyyyyyyyy'
