@@ -90,6 +90,6 @@ task mergeMaster {
 	println stdout.toString().trim()
 }
 
-mergeMaster.dependsOn release
+mergeMaster.dependsOn commitNewVersion
 
 
