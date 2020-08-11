@@ -27,7 +27,7 @@ test {
 release {
 //	pushReleaseVersionBranch = 'release'
 	git {
-		requireBranch = ''
+		requireBranch = 'release|master'
 	}
 }
 
@@ -67,10 +67,10 @@ release {
 //	print stdout.toString().trim()
 //}
 
-class BA extends BuildAdapter {
-	void buildFinished(BuildResult result) {
-		println "finished ==> " + result.action
-	}
-}
-
-gradle.addListener(new BA())
+//class BA extends BuildAdapter {
+//	void buildFinished(BuildResult result) {
+//		println "finished ==> " + result
+//	}
+//}
+//
+//gradle.addListener(new BA())
