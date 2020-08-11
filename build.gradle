@@ -68,7 +68,7 @@ release {
 //}
 
 gradle.taskGraph.whenReady {
-	gradle.taskGraph.allTasks[-1] << {
+	gradle.taskGraph.allTasks[-1].doLast << {
 		println 'finished'
 	}
 }
