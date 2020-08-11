@@ -31,26 +31,21 @@ release {
 	}
 }
 
-afterReleaseBuild {
-	doLast {
-		exec {
-			workingDir '.'
-			commandLine 'echo', 'Merge to master...'
-			commandLine  'sh', '-c', 'git checkout master'
-			commandLine  'sh', '-c', 'git merge release'
-			commandLine  'sh', '-c', 'git push origin master'
-			commandLine 'echo', 'Merge to master...OK'
-		}
 
+
+task mergeReleaseToMaster() {
+	description "Merge [release] branch to [master]"
+	exec {
+		workingDir '.'
+		commandLine 'echo', 'Merge to master...'
+		commandLine  'sh', '-c', 'git checkout master'
+		commandLine  'sh', '-c', 'git merge release'
+		commandLine  'sh', '-c', 'git push origin master'
+		commandLine 'echo', 'Merge to master...OK'
 	}
 }
 
-task mergeReleaseToMaster(type: Exec) {
-	description "Merge [release] branch to [master]"
-	commandLine "echo", "Hey !!!!!!!!!!!!!!!!!!!!!!!!!!!"
-	commandLine "git", "checkout", "master"
-	commandLine "git", "merge", "release"
-}
+mergeReleaseToMaster.dependsOn release
 
 def getGitCommand = { ->
 	def stdout = new ByteArrayOutputStream()
