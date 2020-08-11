@@ -91,7 +91,7 @@ release {
 //}
 
 task mergeMaster {
-	dependsOn release
+	dependsOn commitNewVersion
 //	doLast {
 		def stdout = new ByteArrayOutputStream()
 		exec {
