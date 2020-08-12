@@ -33,7 +33,6 @@ release {
 
 
 task printVersion {
-	dependsOn commitNewVersion
 	doLast {
 		println "ddddddddddddReleased version " + project.property('version')
 	}
@@ -56,3 +55,4 @@ commitNewVersion.doLast {
 	logger.info (['git', 'checkout', 'release'].execute().text.trim())
 }
 
+printVersion.dependsOn commitNewVersion
