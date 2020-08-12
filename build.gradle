@@ -53,9 +53,9 @@ task printMyVersion() {
 //	mustRunAfter commitNewVersion
 
 	doLast {
-		exec {
-			commandLine 'git', 'status'
-		}
+//		exec {
+//			commandLine 'git', 'status'
+//		}
 		logger.warn( "ddddddddddddReleased version ")
 	}
 }
@@ -68,6 +68,6 @@ task uploadVersion() {
 	}
 }
 
-commitNewVersion.finalizedBy printMyVersion, uploadVersion
+commitNewVersion.finalizedBy uploadVersion, printMyVersion
 
 //printVersion.dependsOn commitNewVersion
