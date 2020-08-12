@@ -39,7 +39,7 @@ commitNewVersion.doLast {
 //		commandLine "git", "push", "origin" , "master"
 //		commandLine "git", "checkout", "release"
 		commandLine "git", "checkout", "master"
-		commandLine "git", "branch"
+//		commandLine "git", "branch"
 		println "Merging DONE"
 	}
 }
