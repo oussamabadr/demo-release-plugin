@@ -46,12 +46,16 @@ commitNewVersion.doLast {
 	}
 
 	logger.info (['git', 'checkout', 'release'].execute().text.trim())
+
 }
 
 task printVersion() {
-	println 'Config '
-	mustRunAfter commitNewVersion
+	dependsOn release
+
 	doLast {
+		exec {
+			commandLine 'git', 'status'
+		}
 		logger.warn( "ddddddddddddReleased version ")
 	}
 }
