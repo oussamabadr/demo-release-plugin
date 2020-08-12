@@ -47,15 +47,18 @@ commitNewVersion.doLast {
 
 	logger.info (['git', 'checkout', 'release'].execute().text.trim())
 
-//	throw new GradleException("Some exception")
-
-	finalizedBy uploadVersion, printMyVersion
+	throw new GradleException("Some exception")
 
 }
 
 task printMyVersion() {
 //	mustRunAfter commitNewVersion
 
+	doFirst {
+		if (commitNewVersion.state.failure != null) {
+			throw new GradleException("Some exception")
+		}
+	}
 	doLast {
 //		exec {
 //			commandLine 'git', 'status'
@@ -66,12 +69,15 @@ task printMyVersion() {
 
 task uploadVersion() {
 //	mustRunAfter commitNewVersion
+	if (commitNewVersion.state.failure != null) {
+		throw new GradleException("Some exception")
+	}
 
 	doLast {
-		logger.warn( "Uploading version ")
+		logger.warn( "Uploading version................... ")
 	}
 }
 
-//commitNewVersion.finalizedBy uploadVersion, printMyVersion
+commitNewVersion.finalizedBy uploadVersion, printMyVersion
 
 //printVersion.dependsOn commitNewVersion
