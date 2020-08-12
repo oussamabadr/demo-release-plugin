@@ -31,5 +31,7 @@ release {
 
 
 updateVersion.doLast {
+	Thread.wait(2000L)
 	println "Heyyyyyyyyyyyyyyyyyyyyyyyyyyyy"
+
 }
