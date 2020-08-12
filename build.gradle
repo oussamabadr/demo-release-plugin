@@ -68,6 +68,6 @@ task uploadVersion() {
 	}
 }
 
-commitNewVersion.finalizedBy printMyVersion
+commitNewVersion.finalizedBy printMyVersion, uploadVersion
 
 //printVersion.dependsOn commitNewVersion
