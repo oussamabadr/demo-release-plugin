@@ -49,8 +49,8 @@ commitNewVersion.doLast {
 
 }
 
-task printVersion() {
-	dependsOn release
+task printMyVersion() {
+	mustRunAfter commitNewVersion
 
 	doLast {
 		exec {
