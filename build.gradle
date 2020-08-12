@@ -31,14 +31,14 @@ release {
 
 
 commitNewVersion.doLast {
-	logger.info (['git', 'checkout', 'release'].execute().text.trim())
-	Process gitMergeCmd = ['git', 'merge', 'master'].execute()
+	logger.info (['git', 'checkout', 'master'].execute().text.trim())
+	Process gitMergeCmd = ['git', 'merge', 'release'].execute()
 	gitMergeCmd.waitFor()
 	if (gitMergeCmd.exitValue() == 0) {
-		logger.info (['git', 'push', 'origin', 'release'].execute().text.trim())
+		logger.info (['git', 'push', 'origin', 'master'].execute().text.trim())
 	} else {
 		logger.warn("Abort merge due to conflict with master!")
 		logger.warn(['git', 'merge', '--abort'].execute().text.trim())
 	}
-	logger.info (['git', 'checkout', 'master'].execute().text.trim())
+	logger.info (['git', 'checkout', 'release'].execute().text.trim())
 }
