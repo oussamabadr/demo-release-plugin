@@ -33,6 +33,7 @@ release {
 commitNewVersion.doLast {
 	logger.info (['git', 'checkout', 'release'].execute().text.trim())
 	Process gitMergeCmd = ['git', 'merge', 'master'].execute()
+	gitMergeCmd.wait()
 	if (gitMergeCmd.exitValue() == 0) {
 		logger.info (['git', 'push', 'origin', 'release'].execute().text.trim())
 	} else {
