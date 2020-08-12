@@ -60,6 +60,14 @@ task printMyVersion() {
 	}
 }
 
+task uploadVersion() {
+//	mustRunAfter commitNewVersion
+
+	doLast {
+		logger.warn( "Uploading version ")
+	}
+}
+
 commitNewVersion.finalizedBy printMyVersion
 
 //printVersion.dependsOn commitNewVersion
