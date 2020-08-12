@@ -34,7 +34,7 @@ release {
 
 task printVersion {
 	doLast {
-		println "ddddddddddddReleased version " + project.property('version')
+		println "ddddddddddddReleased version "
 	}
 }
 
