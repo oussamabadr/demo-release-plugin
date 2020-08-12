@@ -31,7 +31,7 @@ release {
 
 
 commitNewVersion.doLast {
-	['git', 'checkout', 'master'].execute().text.trim()
+	['git', 'checkout', 'release'].execute().text.trim()
 	println "Heyyyyyyyyyyyyyyyyyyyyyyyyyyyy"
 	println "Heyyyyyyyyyyyyyyyyyyyyyyyyyyyy"
 }
