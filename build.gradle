@@ -31,5 +31,13 @@ release {
 
 
 commitNewVersion.doLast {
-	println "Heyyyyyyyyyyyyyyyyyyyyyyyyyyyy"
+
+	exec {
+		println "Merging ......"
+		commandLine "git", "checkout", "master"
+		commandLine "git", "merge", "release"
+		commandLine "git", "push", "origin" , "master"
+		commandLine "git", "checkout", "release"
+		println "Merging DONE"
+	}
 }
