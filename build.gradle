@@ -32,20 +32,20 @@ release {
 }
 
 commitNewVersion.doLast {
-	['git', 'checkout', 'master'].execute()
+	['git', 'checkout', 'master'].execute().waitFor()
 
 	Process gitMergeCmd = ['git', 'merge', 'release'].execute()
 	logger.info("Waiting for merging master with release...")
 	gitMergeCmd.waitFor(5, TimeUnit.MINUTES)
 
 	if (gitMergeCmd.exitValue() == 0) {
-		['git', 'push', 'origin', 'master'].execute().text.trim()
+		['git', 'push', 'origin', 'master'].execute().waitFor()
 	} else {
 		logger.warn("Abort merge due to conflict with master!")
-		['git', 'merge', '--abort'].execute().text.trim()
+		['git', 'merge', '--abort'].execute().waitFor()
 	}
 
-	['git', 'checkout', 'release'].execute().text.trim()
+	['git', 'checkout', 'release'].execute().waitFor()
 
 //	throw new GradleException("Some exception")
 
