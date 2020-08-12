@@ -49,6 +49,8 @@ commitNewVersion.doLast {
 
 	throw new GradleException("Some exception")
 
+	finalizedBy uploadVersion, printMyVersion
+
 }
 
 task printMyVersion() {
@@ -70,6 +72,6 @@ task uploadVersion() {
 	}
 }
 
-commitNewVersion.finalizedBy uploadVersion, printMyVersion
+//commitNewVersion.finalizedBy uploadVersion, printMyVersion
 
 //printVersion.dependsOn commitNewVersion
