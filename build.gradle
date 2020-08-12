@@ -67,17 +67,21 @@ task printMyVersion() {
 	}
 }
 
+
+
 task uploadVersion() {
 //	mustRunAfter commitNewVersion
-	doFirst {
-		if (commitNewVersion.state.failure != null) {
-			throw new GradleException("Some exception")
-		}
-	}
-
 	doLast {
 		logger.warn( "Uploading version................... ")
 	}
+}
+
+uploadVersion.doFirst {
+
+	if (commitNewVersion.state.failure != null) {
+		throw new GradleException("Some exception")
+	}
+
 }
 
 commitNewVersion.finalizedBy uploadVersion, printMyVersion
