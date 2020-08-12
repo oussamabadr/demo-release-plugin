@@ -47,7 +47,7 @@ commitNewVersion.doLast {
 
 	logger.info (['git', 'checkout', 'release'].execute().text.trim())
 
-	throw new GradleException("Some exception")
+//	throw new GradleException("Some exception")
 
 }
 
