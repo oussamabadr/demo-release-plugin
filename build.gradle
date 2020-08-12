@@ -31,13 +31,6 @@ release {
 	}
 }
 
-
-task printVersion {
-	doLast {
-		println "ddddddddddddReleased version "
-	}
-}
-
 commitNewVersion.doLast {
 	logger.info (['git', 'checkout', 'master'].execute().text.trim())
 
@@ -55,4 +48,11 @@ commitNewVersion.doLast {
 	logger.info (['git', 'checkout', 'release'].execute().text.trim())
 }
 
-printVersion.dependsOn commitNewVersion
+task printVersion(dependsOn: commitNewVersion) {
+	println 'Config '
+	doLast {
+		println "ddddddddddddReleased version "
+	}
+}
+
+//printVersion.dependsOn commitNewVersion
