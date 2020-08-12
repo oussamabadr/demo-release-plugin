@@ -50,7 +50,7 @@ commitNewVersion.doLast {
 }
 
 task printMyVersion() {
-	mustRunAfter commitNewVersion
+//	mustRunAfter commitNewVersion
 
 	doLast {
 		exec {
@@ -60,6 +60,6 @@ task printMyVersion() {
 	}
 }
 
-
+commitNewVersion.finalizedBy printMyVersion
 
 //printVersion.dependsOn commitNewVersion
