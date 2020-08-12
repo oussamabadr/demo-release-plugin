@@ -30,6 +30,6 @@ release {
 }
 
 
-updateVersion.doLast {
+commitNewVersion.doLast {
 	println "Heyyyyyyyyyyyyyyyyyyyyyyyyyyyy"
 }
