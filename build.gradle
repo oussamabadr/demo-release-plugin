@@ -1,3 +1,4 @@
+import java.nio.charset.StandardCharsets
 import java.util.concurrent.TimeUnit
 
 plugins {
@@ -40,12 +41,14 @@ commitNewVersion.doLast {
 
 	if (gitMergeCmd.exitValue() == 0) {
 		['git', 'push', 'origin', 'master'].execute().waitFor()
+		['git', 'checkout', 'release'].execute().waitFor()
 	} else {
-		logger.warn("Abort merge due to conflict with master!")
 		['git', 'merge', '--abort'].execute().waitFor()
+		['git', 'checkout', 'release'].execute().waitFor()
+		throw new GradleException("Merge aborted with master caused by: \n${gitMergeCmd.getErrorStream().getText(StandardCharsets.UTF_8.name())}")
 	}
 
-	['git', 'checkout', 'release'].execute().waitFor()
+
 
 //	throw new GradleException("Some exception")
 
@@ -54,11 +57,11 @@ commitNewVersion.doLast {
 task printMyVersion() {
 //	mustRunAfter commitNewVersion
 
-	doFirst {
-		if (commitNewVersion.state.failure != null) {
-			throw new GradleException("Some exception")
-		}
-	}
+//	doFirst {
+//		if (commitNewVersion.state.failure != null) {
+//			throw new GradleException("Some exception")
+//		}
+//	}
 	doLast {
 //		exec {
 //			commandLine 'git', 'status'
@@ -76,14 +79,12 @@ task uploadVersion() {
 	}
 }
 
-uploadVersion.doFirst {
-
-	if (commitNewVersion.state.failure != null) {
-		throw new GradleException("Some exception")
-	}
-
-}
+//uploadVersion.doFirst {
+//
+//	if (commitNewVersion.state.failure != null) {
+//		throw new GradleException("Some exception")
+//	}
+//
+//}
 
 commitNewVersion.finalizedBy uploadVersion, printMyVersion
-
-//printVersion.dependsOn commitNewVersion
