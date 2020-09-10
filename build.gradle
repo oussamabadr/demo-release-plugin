@@ -40,6 +40,7 @@ commitNewVersion.doLast {
 	gitCmd.waitFor()
 
 	if (gitCmd.exitValue() == 0) {
+        logger.info("Push merge to master...")
 		gitCmd = ['git', 'push', 'origin', 'master'].execute()
 		gitCmd.waitFor()
 	}
