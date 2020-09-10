@@ -35,7 +35,7 @@ release {
 commitNewVersion.doLast {
 	['git', 'checkout', 'master'].execute().waitFor()
 
-	Process gitCmd = ['git', 'merge', 'release'].execute()
+	Process gitCmd = ['gddit', 'merge', 'release'].execute() // stimulate error
 	logger.info("Merging master with release...")
 	gitCmd.waitFor()
 
