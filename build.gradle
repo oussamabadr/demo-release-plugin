@@ -87,4 +87,4 @@ task uploadVersion() {
 //
 //}
 
-commitNewVersion.finalizedBy uploadVersion, printMyVersion
+afterReleaseBuild.dependsOn uploadVersion, printMyVersion
