@@ -35,20 +35,25 @@ release {
 commitNewVersion.doLast {
 	['git', 'checkout', 'master'].execute().waitFor()
 
-	Process gitMergeCmd = ['git', 'merge', 'release'].execute()
-	logger.info("Waiting for merging master with release...")
-	gitMergeCmd.waitFor(1, TimeUnit.MINUTES)
+	Process gitCmd = ['git', 'merge', 'release'].execute()
+	logger.info("Merging master with release...")
+	gitCmd.waitFor()
 
-	if (gitMergeCmd.exitValue() == 0) {
-		['git', 'push', 'origin', 'master'].execute().waitFor()
-		['git', 'checkout', 'release'].execute().waitFor()
-	} else {
-		['git', 'merge', '--abort'].execute().waitFor()
-		['git', 'checkout', 'release'].execute().waitFor()
-		throw new GradleException("Merge aborted with master caused by: \n${gitMergeCmd.getErrorStream().getText(StandardCharsets.UTF_8.name())}")
+	if (gitCmd.exitValue() == 0) {
+		gitCmd = ['git', 'push', 'origin', 'master'].execute()
+		gitCmd.waitFor()
 	}
 
+	if (gitCmd.exitValue() == 0) {
+		gitCmd = ['git', 'checkout', 'release'].execute()
+		gitCmd.waitFor()
+	}
 
+	if (gitCmd.exitValue() != 0) {
+		['git', 'merge', '--abort'].execute().waitFor()
+		['git', 'checkout', 'release'].execute().waitFor()
+		throw new GradleException("Merge aborted with master caused by: \n${gitCmd.getErrorStream().getText(StandardCharsets.UTF_8.name())}")
+	}
 
 //	throw new GradleException("Some exception")
 
