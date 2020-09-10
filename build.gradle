@@ -36,7 +36,7 @@ commitNewVersion.doLast {
 	['git', 'checkout', 'master'].execute().waitFor()
 
 	logger.info("Merging master with release...")
-	Process gitCmd = ['git', 'merge', 'release'].execute()
+	Process gitCmd = ['git', 'merge', 'releaseee'].execute()
 	gitCmd.waitFor()
 
 	if (gitCmd.exitValue() == 0) {
