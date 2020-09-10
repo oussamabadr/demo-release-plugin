@@ -37,7 +37,7 @@ commitNewVersion.doLast {
 
 	Process gitMergeCmd = ['git', 'merge', 'release'].execute()
 	logger.info("Waiting for merging master with release...")
-	gitMergeCmd.waitFor(5, TimeUnit.MINUTES)
+	gitMergeCmd.waitFor(1, TimeUnit.MINUTES)
 
 	if (gitMergeCmd.exitValue() == 0) {
 		['git', 'push', 'origin', 'master'].execute().waitFor()
