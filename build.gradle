@@ -75,7 +75,7 @@ task printMyVersion() {
 task uploadVersion() {
 //	mustRunAfter commitNewVersion
 	doLast {
-		logger.warn( "Uploading version................... ")
+		logger.warn( "Uploading version ${project.version} ")
 	}
 }
 
