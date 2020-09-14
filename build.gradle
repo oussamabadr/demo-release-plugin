@@ -34,29 +34,30 @@ release {
 
 commitNewVersion.doLast {
 	['git', 'checkout', 'master'].execute().waitFor()
+	int timeoutMinutes = 2
 
 	logger.info("Pull from origin/master...")
 	Process gitCmd = ['git', 'pull', 'origin', 'master'].execute()
-	gitCmd.waitFor()
+	boolean isExecuted = gitCmd.waitFor(timeoutMinutes, TimeUnit.MINUTES)
 
-	if (gitCmd.exitValue() == 0) {
+	if (gitCmd.exitValue() == 0 && isExecuted) {
 		logger.info("Merge master with release....")
 		gitCmd = ['git', 'merge', '--no-edit', 'release'].execute()
-		gitCmd.waitFor()
+		isExecuted = gitCmd.waitFor(timeoutMinutes, TimeUnit.MINUTES)
 	}
 
-	if (gitCmd.exitValue() == 0) {
-        logger.info("Push merge to master...")
+	if (gitCmd.exitValue() == 0 && isExecuted) {
+		logger.info("Push merge to master...")
 		gitCmd = ['git', 'push', 'origin', 'master'].execute()
-		gitCmd.waitFor()
+		isExecuted = gitCmd.waitFor(timeoutMinutes, TimeUnit.MINUTES)
 	}
 
-	if (gitCmd.exitValue() == 0) {
+	if (gitCmd.exitValue() == 0 && isExecuted) {
 		gitCmd = ['git', 'checkout', 'release'].execute()
-		gitCmd.waitFor()
+		isExecuted = gitCmd.waitFor(timeoutMinutes, TimeUnit.MINUTES)
 	}
 
-	if (gitCmd.exitValue() != 0) {
+	if (gitCmd.exitValue() != 0 || !(isExecuted) ) {
 		['git', 'merge', '--abort'].execute().waitFor()
 		['git', 'checkout', 'release'].execute().waitFor()
 		throw new GradleException("Merge aborted with master caused by: \n${gitCmd.getErrorStream().getText(StandardCharsets.UTF_8.name())}")
