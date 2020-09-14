@@ -40,7 +40,7 @@ commitNewVersion.doLast {
 	gitCmd.waitFor()
 
 	if (gitCmd.exitValue() == 0) {
-		logger.info("Merge master with release...")
+		logger.info("Merge master with release....")
 		gitCmd = ['git', 'merge', '--no-edit', 'release'].execute()
 		gitCmd.waitFor()
 	}
